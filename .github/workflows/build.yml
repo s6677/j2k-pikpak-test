@@ -1,0 +1,102 @@
+name: Publish J2K PikPak Test v0.1
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+
+      - name: Checkout TachiyomiJ2K v1.8.1
+        uses: actions/checkout@v4
+        with:
+          repository: Jays2Kings/tachiyomiJ2K
+          ref: v1.8.1
+          path: j2k
+          fetch-depth: 0
+
+      - name: Patch J2K for PikPak test
+        shell: bash
+        run: |
+          echo "CmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAoKcm9vdCA9IFBhdGgoImoyayIpCmNvbnRyb2xsZXIgPSByb290IC8gImFwcC9zcmMvbWFpbi9qYXZhL2V1L2thbmFkZS90YWNoaXlvbWkvdWkvbWFuZ2EvTWFuZ2FEZXRhaWxzQ29udHJvbGxlci5rdCIKc3RyaW5ncyA9IHJvb3QgLyAiYXBwL3NyYy9tYWluL3Jlcy92YWx1ZXMvc3RyaW5ncy54bWwiCgp0ZXh0ID0gY29udHJvbGxlci5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKCm9sZF9zaWcgPSAiICAgIHByaXZhdGUgZnVuIGRvd25sb2FkQ2hhcHRlcnMoY2hhcHRlcnM6IExpc3Q8Q2hhcHRlckl0ZW0+KSB7XG4iCmlmIG9sZF9zaWcgbm90IGluIHRleHQ6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCJDb3VsZCBub3QgZmluZCBkb3dubG9hZENoYXB0ZXJzKExpc3Q8Q2hhcHRlckl0ZW0+KSBpbiBNYW5nYURldGFpbHNDb250cm9sbGVyLmt0IikKCnRleHQgPSB0ZXh0LnJlcGxhY2UoCiAgICBvbGRfc2lnLAogICAgIiAgICBwcml2YXRlIGZ1biBkb3dubG9hZENoYXB0ZXJzTG9jYWwoY2hhcHRlcnM6IExpc3Q8Q2hhcHRlckl0ZW0+KSB7XG4iLAogICAgMSwKKQoKbWFya2VyID0gIiAgICBwcml2YXRlIGZ1biBkb3dubG9hZENoYXB0ZXJzTG9jYWwoY2hhcHRlcnM6IExpc3Q8Q2hhcHRlckl0ZW0+KSB7XG4iCgp3cmFwcGVyID0gIiIiICAgIC8qKgogICAgICogUGlrUGFrIHRlc3QgZm9yazoKICAgICAqIG1hbnVhbCBjaGFwdGVyIGRvd25sb2FkcyBhcmUgcm91dGVkIGhlcmUgZmlyc3QuCiAgICAgKgogICAgICogdjAuMSBkb2VzIE5PVCBzZW5kIGFueXRoaW5nIHRvIFBpa1BhayB5ZXQuCiAgICAgKiBJdCBwcm92ZXMgdGhhdCB0aGUgbW9kaWZpZWQgaG9zdCBjYW46CiAgICAgKiAxKSBpbnRlcmNlcHQgdGhlIHJlYWwgSjJLIGRvd25sb2FkIGFjdGlvbjsKICAgICAqIDIpIGtlZXAgSjJLIGxvY2FsIGRvd25sb2FkIHdvcmtpbmc7CiAgICAgKiAzKSBvYnRhaW4gdGhlIHJlYWwgaW1hZ2UgVVJMcyBkaXJlY3RseSBmcm9tIHRoZSBhY3RpdmUgc291cmNlLgogICAgICovCiAgICBwcml2YXRlIGZ1biBkb3dubG9hZENoYXB0ZXJzKGNoYXB0ZXJzOiBMaXN0PENoYXB0ZXJJdGVtPikgewogICAgICAgIHZhbCBjb250ZXh0ID0gdmlldz8uY29udGV4dCA/OiByZXR1cm4KICAgICAgICBpZiAoY2hhcHRlcnMuaXNFbXB0eSgpKSByZXR1cm4KCiAgICAgICAgY29udGV4dAogICAgICAgICAgICAubWF0ZXJpYWxBbGVydERpYWxvZygpCiAgICAgICAgICAgIC5zZXRUaXRsZSgi5LiL6L295Yiw5ZOq6YeM77yfIikKICAgICAgICAgICAgLnNldEl0ZW1zKAogICAgICAgICAgICAgICAgYXJyYXlPZigKICAgICAgICAgICAgICAgICAgICAi5pys5Zyw5LiL6L29IiwKICAgICAgICAgICAgICAgICAgICAiUGlrUGFrIOWcqOe6v+i9rOWtmO+8iOa1i+ivlSBVUkzvvIkiLAogICAgICAgICAgICAgICAgICAgICLkuKTogIXvvIjmtYvor5XvvIkiLAogICAgICAgICAgICAgICAgKSwKICAgICAgICAgICAgKSB7IF8sIHdoaWNoIC0+CiAgICAgICAgICAgICAgICB3aGVuICh3aGljaCkgewogICAgICAgICAgICAgICAgICAgIDAgLT4gZG93bmxvYWRDaGFwdGVyc0xvY2FsKGNoYXB0ZXJzKQogICAgICAgICAgICAgICAgICAgIDEgLT4gdGVzdFBpa1Bha0ltYWdlVXJscyhjaGFwdGVycykKICAgICAgICAgICAgICAgICAgICAyIC0+IHsKICAgICAgICAgICAgICAgICAgICAgICAgZG93bmxvYWRDaGFwdGVyc0xvY2FsKGNoYXB0ZXJzKQogICAgICAgICAgICAgICAgICAgICAgICB0ZXN0UGlrUGFrSW1hZ2VVcmxzKGNoYXB0ZXJzKQogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfS5zZXROZWdhdGl2ZUJ1dHRvbihhbmRyb2lkLlIuc3RyaW5nLmNhbmNlbCwgbnVsbCkKICAgICAgICAgICAgLnNob3coKQogICAgfQoKICAgIC8qKgogICAgICogUmVzb2x2ZSBwYWdlL2ltYWdlIFVSTHMgdXNpbmcgSjJLJ3MgY3VycmVudGx5IGxvYWRlZCBzb3VyY2UuCiAgICAgKgogICAgICogRm9yIEFDR04tbGlrZSBzb3VyY2VzIHRoaXMgaXMgdGhlIGV4YWN0IGRhdGEgdGhhdCB0aGUgbmV4dCB2ZXJzaW9uIHdpbGwKICAgICAqIHN1Ym1pdCB0byBQaWtQYWsgQ2xvdWQgRG93bmxvYWQuIE5vIEFjY2Vzc2liaWxpdHkgYW5kIG5vIFVJIHNjcmFwaW5nLgogICAgICovCiAgICBwcml2YXRlIGZ1biB0ZXN0UGlrUGFrSW1hZ2VVcmxzKGNoYXB0ZXJzOiBMaXN0PENoYXB0ZXJJdGVtPikgewogICAgICAgIHZhbCBjb250ZXh0ID0gdmlldz8uY29udGV4dCA/OiByZXR1cm4KICAgICAgICB2YWwgc291cmNlID0KICAgICAgICAgICAgcHJlc2VudGVyLnNvdXJjZSBhcz8gSHR0cFNvdXJjZQogICAgICAgICAgICAgICAgPzogcnVuIHsKICAgICAgICAgICAgICAgICAgICBjb250ZXh0LnRvYXN0KCJQaWtQYWsg5rWL6K+V77ya6L+Z5Liq5p2l5rqQ5LiN5pivIEh0dHBTb3VyY2UiKQogICAgICAgICAgICAgICAgICAgIHJldHVybgogICAgICAgICAgICAgICAgfQoKICAgICAgICBjb250ZXh0LnRvYXN0KCJQaWtQYWsg5rWL6K+V77ya5q2j5Zyo6Kej5p6Q55yf5a6e5Zu+54mHIFVSTOKApiIpCgogICAgICAgIFRocmVhZCB7CiAgICAgICAgICAgIHZhbCByZXN1bHQgPQogICAgICAgICAgICAgICAgcnVuQ2F0Y2hpbmcgewogICAgICAgICAgICAgICAgICAgIHJ1bkJsb2NraW5nIHsKICAgICAgICAgICAgICAgICAgICAgICAgdmFsIHBlckNoYXB0ZXIgPQogICAgICAgICAgICAgICAgICAgICAgICAgICAgY2hhcHRlcnMubWFwIHsgaXRlbSAtPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbCBwYWdlcyA9IHNvdXJjZS5nZXRQYWdlTGlzdChpdGVtLmNoYXB0ZXIpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsIHVybHMgPQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYWdlcy5tYXBOb3ROdWxsIHsgcGFnZSAtPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFnZS5pbWFnZVVybAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID8udGFrZUlmIHsgaXQuaXNOb3RCbGFuaygpIH0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA/OiBydW5DYXRjaGluZyB7IHNvdXJjZS5nZXRJbWFnZVVybChwYWdlKSB9LmdldE9yTnVsbCgpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUcmlwbGUoaXRlbS5jaGFwdGVyLm5hbWUsIHBhZ2VzLnNpemUsIHVybHMpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgICAgICB2YWwgdG90YWxQYWdlcyA9IHBlckNoYXB0ZXIuc3VtT2YgeyBpdC5zZWNvbmQgfQogICAgICAgICAgICAgICAgICAgICAgICB2YWwgdG90YWxVcmxzID0gcGVyQ2hhcHRlci5zdW1PZiB7IGl0LnRoaXJkLnNpemUgfQogICAgICAgICAgICAgICAgICAgICAgICB2YWwgZmlyc3RVcmwgPSBwZXJDaGFwdGVyLmZpcnN0Tm90TnVsbE9mT3JOdWxsIHsgaXQudGhpcmQuZmlyc3RPck51bGwoKSB9CgogICAgICAgICAgICAgICAgICAgICAgICBidWlsZFN0cmluZyB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmRMaW5lKCLmvKvnlLvvvJoke3ByZXNlbnRlci5tYW5nYS50aXRsZX0iKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgYXBwZW5kTGluZSgi5p2l5rqQ77yaJHtzb3VyY2UubmFtZX0iKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgYXBwZW5kTGluZSgi56ug6IqC77yaJHtjaGFwdGVycy5zaXplfSIpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmRMaW5lKCLpobXpnaLvvJokdG90YWxQYWdlcyIpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmRMaW5lKCLmiJDlip/op6PmnpAgVVJM77yaJHRvdGFsVXJscyIpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmRMaW5lKCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBlckNoYXB0ZXIudGFrZSg1KS5mb3JFYWNoIHsgKG5hbWUsIHBhZ2VDb3VudCwgdXJscykgLT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmRMaW5lKCIkbmFtZe+8miR7dXJscy5zaXplfS8kcGFnZUNvdW50IikKICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChwZXJDaGFwdGVyLnNpemUgPiA1KSB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYXBwZW5kTGluZSgi4oCmIikKICAgICAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFwcGVuZExpbmUoKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgYXBwZW5kTGluZSgi56ys5LiA5byg55yf5a6e5Zu+54mHIFVSTO+8miIpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBhcHBlbmQoZmlyc3RVcmwgPzogIuayoeacieino+aekOWIsOWbvueJhyBVUkwiKQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgdmFsIGhvc3RBY3Rpdml0eSA9IGFjdGl2aXR5ID86IHJldHVybkBUaHJlYWQKICAgICAgICAgICAgaG9zdEFjdGl2aXR5LnJ1bk9uVWlUaHJlYWQgewogICAgICAgICAgICAgICAgcmVzdWx0CiAgICAgICAgICAgICAgICAgICAgLm9uU3VjY2VzcyB7IG1lc3NhZ2UgLT4KICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGhvc3RBY3Rpdml0eS5pc0ZpbmlzaGluZyB8fCBob3N0QWN0aXZpdHkuaXNEZXN0cm95ZWQpIHJldHVybkBvblN1Y2Nlc3MKICAgICAgICAgICAgICAgICAgICAgICAgaG9zdEFjdGl2aXR5CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAubWF0ZXJpYWxBbGVydERpYWxvZygpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAuc2V0VGl0bGUoIlBpa1BhayDlnKjnur/ovazlrZjmtYvor5UiKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgLnNldE1lc3NhZ2UobWVzc2FnZSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5zZXRQb3NpdGl2ZUJ1dHRvbihhbmRyb2lkLlIuc3RyaW5nLm9rLCBudWxsKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgLnNob3coKQogICAgICAgICAgICAgICAgICAgIH0ub25GYWlsdXJlIHsgZXJyb3IgLT4KICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGhvc3RBY3Rpdml0eS5pc0ZpbmlzaGluZyB8fCBob3N0QWN0aXZpdHkuaXNEZXN0cm95ZWQpIHJldHVybkBvbkZhaWx1cmUKICAgICAgICAgICAgICAgICAgICAgICAgaG9zdEFjdGl2aXR5CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAubWF0ZXJpYWxBbGVydERpYWxvZygpCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAuc2V0VGl0bGUoIlBpa1BhayDmtYvor5XlpLHotKUiKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgLnNldE1lc3NhZ2UoIiR7ZXJyb3IuamF2YUNsYXNzLnNpbXBsZU5hbWV9OiAke2Vycm9yLm1lc3NhZ2V9IikKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5zZXRQb3NpdGl2ZUJ1dHRvbihhbmRyb2lkLlIuc3RyaW5nLm9rLCBudWxsKQogICAgICAgICAgICAgICAgICAgICAgICAgICAgLnNob3coKQogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0uc3RhcnQoKQogICAgfQoKIiIiCgp0ZXh0ID0gdGV4dC5yZXBsYWNlKG1hcmtlciwgd3JhcHBlciArIG1hcmtlciwgMSkKY29udHJvbGxlci53cml0ZV90ZXh0KHRleHQsIGVuY29kaW5nPSJ1dGYtOCIpCgpzID0gc3RyaW5ncy5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKcyA9IHMucmVwbGFjZSgKICAgICc8c3RyaW5nIG5hbWU9ImFwcF9uYW1lIiB0cmFuc2xhdGFibGU9ImZhbHNlIj5UYWNoaXlvbWlKMks8L3N0cmluZz4nLAogICAgJzxzdHJpbmcgbmFtZT0iYXBwX25hbWUiIHRyYW5zbGF0YWJsZT0iZmFsc2UiPkoySyBQaWtQYWsgVGVzdDwvc3RyaW5nPicsCiAgICAxLAopCnMgPSBzLnJlcGxhY2UoCiAgICAnPHN0cmluZyBuYW1lPSJhcHBfc2hvcnRfbmFtZSIgdHJhbnNsYXRhYmxlPSJmYWxzZSI+VGFjaGlKMks8L3N0cmluZz4nLAogICAgJzxzdHJpbmcgbmFtZT0iYXBwX3Nob3J0X25hbWUiIHRyYW5zbGF0YWJsZT0iZmFsc2UiPkoySyBQaWtQYWs8L3N0cmluZz4nLAogICAgMSwKKQpzdHJpbmdzLndyaXRlX3RleHQocywgZW5jb2Rpbmc9InV0Zi04IikKCnByaW50KCJQYXRjaGVkOiIsIGNvbnRyb2xsZXIpCnByaW50KCJQYXRjaGVkOiIsIHN0cmluZ3MpCg==" | base64 -d > /tmp/patch_j2k.py
+          python3 /tmp/patch_j2k.py
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: temurin
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Copy upstream CI Gradle settings
+        working-directory: j2k
+        shell: bash
+        run: |
+          mkdir -p ~/.gradle
+          cp .github/runner-files/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Build modified J2K
+        working-directory: j2k
+        shell: bash
+        run: |
+          set -o pipefail
+          ./gradlew assembleDevDebug --stacktrace --console=plain 2>&1 | tee /tmp/j2k-pikpak-build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: J2K-PikPak-Test-v0.1-build-log
+          path: /tmp/j2k-pikpak-build.log
+          if-no-files-found: ignore
+
+      - name: Collect universal debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out
+
+          APK="$(find j2k/app/build/outputs/apk/dev/debug -type f -name '*universal*debug*.apk' -print -quit)"
+          if [ -z "$APK" ]; then
+            APK="$(find j2k/app/build/outputs/apk/dev/debug -type f -name '*.apk' -print -quit)"
+          fi
+
+          test -n "$APK"
+          test -f "$APK"
+
+          cp "$APK" out/J2K-PikPak-Test-v0.1.apk
+          ls -lh out/J2K-PikPak-Test-v0.1.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: J2K-PikPak-Test-v0.1
+          path: out/J2K-PikPak-Test-v0.1.apk
+
+      - name: Publish GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TAG="j2k-pikpak-test-v0.1"
+          NOTES="Based on TachiyomiJ2K v1.8.1. Manual download now offers Local / PikPak URL test / Both. PikPak branch only resolves real image URLs; it does not create cloud-download tasks yet."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/J2K-PikPak-Test-v0.1.apk --clobber
+            gh release edit "$TAG" --notes "$NOTES"
+          else
+            gh release create "$TAG" out/J2K-PikPak-Test-v0.1.apk \
+              --title "J2K PikPak Test v0.1" \
+              --notes "$NOTES"
+          fi
